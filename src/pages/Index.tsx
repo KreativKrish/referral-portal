@@ -1,16 +1,39 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import TopNav from "@/components/TopNav";
+import DashboardView from "@/components/DashboardView";
+import ReferralsView from "@/components/ReferralsView";
+import RewardsView from "@/components/RewardsView";
+import CoursesView from "@/components/CoursesView";
+import SchemeView from "@/components/SchemeView";
+import TermsView from "@/components/TermsView";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const TABS = [
+  { id: "dashboard", label: "🏠 Dashboard" },
+  { id: "referrals", label: "👥 My Referrals" },
+  { id: "rewards", label: "💸 My Rewards" },
+  { id: "courses", label: "🎓 Courses" },
+  { id: "scheme", label: "🎁 Referral Scheme" },
+  { id: "terms", label: "📄 Terms" },
+];
+
+const Index = () => {
+  const [activeTab, setActiveTab] = useState("dashboard");
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen bg-background relative z-[1]">
+      <TopNav tabs={TABS} activeTab={activeTab} onTabChange={setActiveTab} />
+      <main className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="animate-fade-in" key={activeTab}>
+          {activeTab === "dashboard" && <DashboardView onNavigate={setActiveTab} />}
+          {activeTab === "referrals" && <ReferralsView />}
+          {activeTab === "rewards" && <RewardsView />}
+          {activeTab === "courses" && <CoursesView onNavigate={setActiveTab} />}
+          {activeTab === "scheme" && <SchemeView onNavigate={setActiveTab} />}
+          {activeTab === "terms" && <TermsView />}
+        </div>
+      </main>
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;

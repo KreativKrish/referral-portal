@@ -26,7 +26,7 @@ const TermsView = () => (
     ))}
 
     <div className="bg-card2 border border-border rounded-xl p-3.5">
-      <p className="text-muted-foreground text-xs">Questions? Reach out to Dr. Priya Sharma or email <span className="text-primary">support@refportal.com</span></p>
+      <p className="text-muted-foreground text-xs">Questions? Email us at <span className="text-primary">support@refportal.com</span> or call our counsellor.</p>
     </div>
   </div>
 );

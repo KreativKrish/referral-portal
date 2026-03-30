@@ -38,7 +38,7 @@ const CoursesView = ({ onNavigate }: Props) => (
           </div>
           <div className="flex gap-1.5 items-center flex-wrap mt-2">
             <span className="text-muted-foreground text-[10px]">📅 {c.date}</span>
-            <span className="bg-secondary/10 text-secondary text-[10px] font-medium px-2 py-0.5 rounded-full">{c.benefit}</span>
+            <span className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">{c.benefit}</span>
           </div>
         </div>
       ))}

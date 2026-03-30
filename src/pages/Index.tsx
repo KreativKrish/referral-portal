@@ -59,6 +59,40 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Referral Code */}
+        <section className="bg-card border border-border rounded-2xl p-6 md:p-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4 flex-wrap">
+              <div>
+                <h3 className="font-display font-bold text-base mb-0.5">🔗 Your Referral Code</h3>
+                <p className="text-muted-foreground text-xs">Share with students to earn rewards</p>
+              </div>
+              <div className="flex items-center gap-2 bg-accent/30 border border-border rounded-lg px-4 py-2.5 font-display font-extrabold text-lg tracking-wider">
+                REF2024SD847
+                <button
+                  onClick={(e) => {
+                    navigator.clipboard.writeText("REF2024SD847").catch(() => {});
+                    const btn = e.currentTarget;
+                    btn.textContent = "✓ Copied!";
+                    setTimeout(() => (btn.textContent = "📋 Copy"), 2000);
+                  }}
+                  className="bg-primary text-primary-foreground px-3 py-1 rounded-md text-[11px] font-bold hover:opacity-90 transition-all shrink-0 ml-2"
+                >
+                  📋 Copy
+                </button>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                navigator.share?.({ title: "Referral Link", text: "Use my referral code REF2024SD847", url: window.location.href }).catch(() => {});
+              }}
+              className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shrink-0"
+            >
+              🔗 Share Referral Link
+            </button>
+          </div>
+        </section>
+
         <section id="dashboard">
           <h2 className="font-display font-extrabold text-xl mb-4">🏠 Dashboard</h2>
           <DashboardView onNavigate={noop} />

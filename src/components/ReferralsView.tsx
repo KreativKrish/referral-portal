@@ -1,5 +1,4 @@
 import { useState } from "react";
-import AlertBanner from "./AlertBanner";
 
 const REFERRALS = [
   { initials: "SJ", name: "Sarah Johnson", phone: "+1 (555) 123-4567", email: "sarah.j@company.com", status: "closed", date: "Jan 10, 2025", gradient: "from-secondary to-purple-300" },

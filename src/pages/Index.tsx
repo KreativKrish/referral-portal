@@ -3,127 +3,230 @@ import DashboardView from "@/components/DashboardView";
 import ReferralsView from "@/components/ReferralsView";
 import RewardsView from "@/components/RewardsView";
 import CoursesView from "@/components/CoursesView";
-
 import FaqView from "@/components/FaqView";
-import TermsView from "@/components/TermsView";
+import React, { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const SECTIONS = [
   { id: "dashboard", label: "🏠 Dashboard" },
   { id: "referrals", label: "👥 My Referrals" },
   { id: "rewards", label: "💸 My Rewards" },
   { id: "courses", label: "🎓 Courses" },
+  { id: "counsellor", label: "📞 Support" },
   { id: "faq", label: "❓ FAQ" },
-  { id: "terms", label: "📄 Terms" },
 ];
 
-const noop = () => {};
+const noop = () => { };
 
 const Index = () => {
+  const [copied, setCopied] = useState(false);
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  return (
-    <div className="min-h-screen bg-background relative z-[1]">
-      <TopNav tabs={SECTIONS} activeTab="" onTabChange={scrollTo} />
-      <main className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-12">
-        {/* Hero */}
-        <section className="bg-gradient-to-br from-primary/10 via-secondary/5 to-transparent border border-primary/15 rounded-2xl p-8 md:p-12 text-center">
-          <h1 className="font-display font-extrabold text-3xl md:text-4xl lg:text-5xl leading-tight mb-3">
-            Refer Friends. Shape Futures.<br className="hidden sm:block" /> <span className="text-primary">Earn Rewards.</span>
-          </h1>
-          <p className="text-muted-foreground text-sm md:text-base max-w-xl mx-auto">
-            Share your referral code, help students find the right course, and earn real cash bonuses for every successful enrollment.
-          </p>
-        </section>
-        {/* Start Referring Now */}
-        <section className="text-center">
-          <h2 className="font-display font-extrabold text-2xl md:text-3xl mb-8">Start Referring Now</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="rounded-2xl border border-border bg-card p-6 text-left shadow-sm">
-              <p className="text-3xl mb-3">🚀</p>
-              <h3 className="font-display font-bold text-lg mb-2">Step 1: Get Started</h3>
-              <p className="text-muted-foreground text-sm">Log in to the Referral Portal through your Student Portal and quickly set up your bank details to start earning.</p>
-            </div>
-            <div className="rounded-2xl border border-border bg-card p-6 text-left shadow-sm">
-              <p className="text-3xl mb-3">🔗</p>
-              <h3 className="font-display font-bold text-lg mb-2">Step 2: Share & Refer</h3>
-              <p className="text-muted-foreground text-sm">Invite your friends by sharing your referral link or code. They can easily use it while filling out the enquiry form—simple and seamless!</p>
-            </div>
-            <div className="rounded-2xl border border-border bg-card p-6 text-left shadow-sm">
-              <p className="text-3xl mb-3">💰</p>
-              <h3 className="font-display font-bold text-lg mb-2">Step 3: Earn Rewards</h3>
-              <p className="text-muted-foreground text-sm">Once your referral enrolls, you earn a commission directly in your bank account. Plus, your friend enjoys an exclusive discount on their course fee (varies by course).</p>
-            </div>
-          </div>
-        </section>
+  const handleCopy = () => {
+    navigator.clipboard.writeText("REF2024SD847").catch(() => { });
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
-        {/* Referral Code */}
-        <section className="bg-card border border-border rounded-2xl p-6 md:p-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4 flex-wrap">
+  const loaderRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
+  const mainContentRef = useRef<HTMLDivElement>(null);
+
+  // Apply the scroll reveal hook to animated scroll elements
+  useScrollReveal();
+
+  useEffect(() => {
+    // Initial cool loading animation matching the GSAP aesthetic
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
+      
+      // Hide main content initially
+      gsap.set(mainContentRef.current, { opacity: 0, scale: 0.98 });
+      
+      // Logo entry pulse
+      tl.fromTo(logoRef.current, 
+        { scale: 0.5, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1, ease: "back.out(1.7)" }
+      )
+      // Small float effect
+      .to(logoRef.current, {
+        y: -10, duration: 0.6, yoyo: true, repeat: 1, ease: "power1.inOut"
+      })
+      // Fade out background loader
+      .to(loaderRef.current, {
+        opacity: 0, duration: 0.8, ease: "power2.inOut",
+        onComplete: () => {
+          if (loaderRef.current) loaderRef.current.style.display = "none";
+        }
+      }, "-=0.3")
+      // Reveal the main website
+      .to(mainContentRef.current, {
+        opacity: 1, scale: 1, duration: 1, ease: "power3.out"
+      }, "-=0.4");
+      
+    });
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <>
+      {/* GSAP Fullscreen Loader */}
+      <div 
+        ref={loaderRef}
+        className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center font-display"
+      >
+        <div className="relative">
+          <img 
+            ref={logoRef}
+            src="/logo.png" 
+            alt="Loading..." 
+            className="w-48 object-contain drop-shadow-lg" 
+          />
+        </div>
+      </div>
+
+      <div ref={mainContentRef} className="min-h-screen bg-background relative z-[1]">
+      <TopNav tabs={SECTIONS} activeTab="" onTabChange={scrollTo} />
+
+      <main className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-14">
+
+        {/* ─── HERO AND PROCESS ─────────────────────────────────── */}
+        <section aria-label="Hero and Process" className="gsap-reveal-up grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6 xl:gap-8">
+          
+          {/* LEFT SIDE: Hero Text + Stats */}
+          <div className="flex flex-col gap-4">
+            {/* Main hero cell */}
+            <div className="bg-gradient-to-br from-sky-400/20 via-sky-400/5 to-transparent border border-sky-400/20 rounded-3xl p-8 md:p-10 flex flex-col justify-between gap-6 flex-1">
               <div>
-                <h3 className="font-display font-bold text-base mb-0.5">🔗 Your Referral Code</h3>
-                <p className="text-muted-foreground text-xs">Share with students to earn rewards</p>
+                <h1 className="font-display font-extrabold text-3xl md:text-4xl lg:text-[2.6rem] leading-tight mb-3">
+                  Refer Friends.<br />Shape Futures.<br />
+                  <span className="text-sky-600 dark:text-sky-500">Earn Rewards.</span>
+                </h1>
+                <p className="text-muted-foreground text-sm md:text-base max-w-md">
+                  Share your referral code, help students find the right course, and earn real cash bonuses for every successful enrollment.
+                </p>
               </div>
-              <div className="flex items-center gap-2 bg-accent/30 border border-border rounded-lg px-4 py-2.5 font-display font-extrabold text-lg tracking-wider">
-                REF2024SD847
+              <div className="flex flex-wrap gap-3">
                 <button
-                  onClick={(e) => {
-                    navigator.clipboard.writeText("REF2024SD847").catch(() => {});
-                    const btn = e.currentTarget;
-                    btn.textContent = "✓ Copied!";
-                    setTimeout(() => (btn.textContent = "📋 Copy"), 2000);
-                  }}
-                  className="bg-primary text-primary-foreground px-3 py-1 rounded-md text-[11px] font-bold hover:opacity-90 transition-all shrink-0 ml-2"
+                  onClick={() => navigator.share?.({ title: "Referral Link", text: "Use my referral code REF2024SD847", url: window.location.href }).catch(() => { })}
+                  className="bg-primary text-primary-foreground px-5 py-2.5 rounded-xl text-sm font-bold hover:opacity-90 hover:-translate-y-0.5 transition-all flex items-center gap-2 shadow-sm"
                 >
-                  📋 Copy
+                  🔗 Share Referral Link
+                </button>
+                <button className="bg-foreground text-background px-5 py-2.5 rounded-xl text-sm font-bold hover:opacity-90 hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                  ➕ Add New Referral
                 </button>
               </div>
             </div>
-            <div className="flex items-center gap-3 shrink-0">
-              <button
-                onClick={() => {
-                  navigator.share?.({ title: "Referral Link", text: "Use my referral code REF2024SD847", url: window.location.href }).catch(() => {});
-                }}
-                className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shrink-0"
-              >
-                🔗 Share Referral Link
-              </button>
-              <button className="bg-foreground text-background px-5 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shrink-0">
-                ➕ Add New Referral
-              </button>
+
+            {/* Quick stats row */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Referral code card */}
+              <div className="bg-card border border-border rounded-3xl p-5 flex flex-col justify-between gap-3 hover:border-primary/30 transition-colors">
+                <div>
+                  <div className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide mb-1">Your Referral Code</div>
+                  <div className="font-display font-extrabold text-2xl tracking-wider text-foreground">REF2024SD847</div>
+                </div>
+                <button
+                  onClick={handleCopy}
+                  className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${copied ? "bg-success/10 text-success border border-success/20" : "bg-card2 border border-border hover:border-primary/30 text-foreground"}`}
+                >
+                  {copied ? "✓ Copied!" : "📋 Copy Code"}
+                </button>
+              </div>
+
+              {/* Quick stat: earnings */}
+              <div className="bg-gradient-to-br from-primary/8 to-transparent border border-primary/15 rounded-3xl p-5 flex flex-col justify-between group">
+                <div className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide mb-1">Current Earnings</div>
+                <div className="font-display font-extrabold text-3xl text-primary group-hover:scale-105 transition-transform origin-left">₹3,000</div>
+                <div className="inline-flex items-center gap-1 bg-secondary/10 text-secondary text-[10px] font-medium px-2 py-0.5 rounded-full mt-2 self-start">
+                  🚀 Potential ₹7,700
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT SIDE: Steps of referral process */}
+          <div className="flex flex-col gsap-stagger-container">
+            <h2 className="font-display font-extrabold text-xl mb-4 flex items-center gap-2">🚀 Start Referring Now</h2>
+            <div className="flex flex-col gap-3 flex-1 justify-between">
+              {[
+                { icon: "01", title: "Get Started", desc: "Log in through your Student Portal and securely set up your bank details so you're ready to start earning immediately." },
+                { icon: "02", title: "Share & Refer", desc: "Invite your friends by sharing your unique referral link or code. They simply apply it while filling out their enquiry form." },
+                { icon: "03", title: "Earn Rewards", desc: "Once your friend is enrolled, your commission is wired directly to you. Plus, they score an exclusive tuition discount!" },
+              ].map((s, i) => (
+                <div 
+                  key={i} 
+                  className="bg-card border border-border rounded-2xl p-6 flex items-start gap-5 hover:-translate-y-1 hover:border-primary/30 transition-all group shadow-sm hover:shadow-md gsap-stagger-item"
+                >
+                  <div className="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center font-display font-extrabold text-xl text-primary shrink-0 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                    {s.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-display font-bold text-base mb-1.5 group-hover:text-primary transition-colors">{s.title}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        <section id="dashboard">
-          <h2 className="font-display font-extrabold text-xl mb-4">🏠 Dashboard</h2>
+        {/* ─── DASHBOARD ──────────────────────────────────── */}
+        <section id="dashboard" aria-label="Dashboard" className="gsap-reveal-up">
+          <SectionHeading>🏠 Dashboard</SectionHeading>
           <DashboardView onNavigate={noop} />
         </section>
-        <section id="referrals">
-          <h2 className="font-display font-extrabold text-xl mb-4">👥 My Referrals</h2>
+
+        {/* ─── REFERRALS ──────────────────────────────────── */}
+        <section id="referrals" aria-label="My Referrals" className="gsap-reveal-up">
+          <SectionHeading>👥 My Referrals</SectionHeading>
           <ReferralsView />
         </section>
-        <section id="rewards">
-          <h2 className="font-display font-extrabold text-xl mb-4">💸 My Rewards</h2>
+
+        {/* ─── REWARDS ────────────────────────────────────── */}
+        <section id="rewards" aria-label="My Rewards" className="gsap-reveal-up">
+          <SectionHeading>💸 My Rewards</SectionHeading>
           <RewardsView />
         </section>
-        <section id="courses">
-          <h2 className="font-display font-extrabold text-xl mb-4">🎓 Courses</h2>
+
+        {/* ─── COURSES ────────────────────────────────────── */}
+        <section id="courses" aria-label="Courses" className="gsap-reveal-up">
+          <SectionHeading>🎓 Courses</SectionHeading>
           <CoursesView onNavigate={noop} />
         </section>
-        <section id="faq">
-          <h2 className="font-display font-extrabold text-xl mb-4">❓ FAQ</h2>
+
+        {/* ─── FAQ ────────────────────────────────────────── */}
+        <section id="faq" aria-label="FAQ" className="gsap-reveal-up">
           <FaqView />
         </section>
-        <section id="terms">
-          <h2 className="font-display font-extrabold text-xl mb-4">📄 Terms & Conditions</h2>
-          <TermsView />
-        </section>
+
+        <footer className="gsap-reveal-up border-t border-border pt-8 pb-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-muted-foreground text-xs">
+          <div className="flex items-center gap-2">
+            <img src="/logo.png" alt="RefPortal Logo" className="h-6 object-contain opacity-80 hover:opacity-100 transition-opacity" />
+          </div>
+          <span>© 2025 RefPortal · All rights reserved</span>
+          <div className="flex gap-4">
+            <button onClick={() => scrollTo("faq")} className="hover:text-foreground transition-colors">FAQ</button>
+            <a href="/terms" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Terms</a>
+            <button onClick={() => scrollTo("counsellor")} className="hover:text-foreground transition-colors">Support</button>
+          </div>
+        </footer>
+
       </main>
     </div>
+    </>
   );
 };
+
+const SectionHeading = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
+  <h2 className={`font-display font-extrabold flex items-center gap-2 ${className || "text-xl mb-5"}`}>
+    {children}
+  </h2>
+);
 
 export default Index;

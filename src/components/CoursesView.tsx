@@ -34,14 +34,15 @@ const CoursesView = ({ onNavigate }: Props) => (
           <tr className="border-b border-border bg-card2/50">
             <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Course</th>
             <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Type</th>
-            <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Referral Bonus</th>
+            <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Referrer Bonus</th>
             <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Deadline</th>
-            <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Benefit</th>
+            <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Referral Benefit</th>
+            <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-right px-4 py-2.5">Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="gsap-stagger-container">
           {COURSES.map((c, i) => (
-            <tr key={i} className="border-b border-border last:border-b-0 hover:bg-card2/30 transition-colors">
+            <tr key={i} className="border-b border-border last:border-b-0 hover:bg-card2/30 transition-colors gsap-stagger-item">
               <td className="px-4 py-3 font-semibold text-[13px]">{c.name}</td>
               <td className="px-4 py-3">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-card2 px-2 py-0.5 rounded-full">{c.type}</span>
@@ -51,13 +52,18 @@ const CoursesView = ({ onNavigate }: Props) => (
               <td className="px-4 py-3">
                 <span className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">{c.benefit}</span>
               </td>
+              <td className="px-4 py-3 text-right">
+                <button onClick={() => onNavigate("referrals")} className="bg-card2 border border-border text-foreground hover:border-primary/30 px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap">
+                  🔗 Refer Now
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
 
-    <div className="bg-gradient-to-r from-secondary/10 to-primary/5 border border-primary/15 rounded-2xl p-5 flex items-center justify-between gap-4 mt-5 flex-wrap">
+    <div className="bg-gradient-to-r from-secondary/10 to-primary/5 border border-primary/15 rounded-2xl p-5 flex items-center justify-between gap-4 mt-5 flex-wrap gsap-reveal-up">
       <div>
         <h3 className="font-extrabold text-[17px] mb-1">Know someone perfect for these courses? 🎯</h3>
         <p className="text-muted-foreground text-xs">Refer them now and earn up to ₹5,000 per successful enrollment.</p>

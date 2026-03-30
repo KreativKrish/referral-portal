@@ -4,121 +4,118 @@ interface Props {
   onNavigate: (tab: string) => void;
 }
 
+const LEADERBOARD = [
+  { rank: 1, name: "David Rodriguez", initials: "DR", refs: 156, enrolled: 134, prize: "₹50,000", gradient: "from-amber-400 to-orange-500", color: "text-amber-500" },
+  { rank: 2, name: "Jennifer Kim", initials: "JK", refs: 142, enrolled: 118, prize: "₹35,000", gradient: "from-gray-300 to-gray-400", color: "text-gray-400" },
+  { rank: 3, name: "Marcus Thompson", initials: "MT", refs: 138, enrolled: 112, prize: "₹25,000", gradient: "from-amber-600 to-red-600", color: "text-amber-700" },
+  { rank: 4, name: "Sarah Chen", refs: 98, enrolled: 85, prize: "₹10,000" },
+  { rank: 5, name: "Michael Chang", refs: 87, enrolled: 76, prize: "₹10,000" },
+  { rank: 6, name: "Jessica Smith", refs: 82, enrolled: 71, prize: "₹10,000" },
+];
+
 const DashboardView = ({ onNavigate }: Props) => {
   return (
     <div>
       <AlertBanner />
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-        <StatCard label="👥 Total Referrals" value="9" sub="All time" />
-        <StatCard label="🔄 In Progress" value="2" valueClass="text-warning" sub="Being processed" />
-        <StatCard label="✅ Successfully Closed" value="0" valueClass="text-success" sub="Converted" />
-        <StatCard label="💰 Total Earnings" value="₹3,000" valueClass="text-primary" badge="🚀 Potential ₹7,700" />
+      {/* Bento Stats Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5 gsap-stagger-container">
+        <StatCard label="Total Referrals" icon="👥" value="9" sub="All time" />
+        <StatCard label="In Progress" icon="🔄" value="2" valueClass="text-warning" sub="Being processed" />
+        <StatCard label="Successfully Closed" icon="✅" value="0" valueClass="text-success" sub="Converted" />
+        <StatCard label="Current Earnings" icon="💰" value="₹3,000" valueClass="text-primary" badge="🚀 Potential ₹7,700" />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-4">
-        <div className="flex flex-col gap-4">
-          {/* Leaderboard */}
-          <div className="bg-card border border-border rounded-2xl p-5">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-border">
-              <h3 className="font-display font-bold text-[15px] flex items-center gap-2">
-                🏆 Top Performers <span className="font-body font-normal text-[10px] text-muted-foreground bg-card2 px-2 py-0.5 rounded-full">This month</span>
-              </h3>
-            </div>
-            <div className="grid grid-cols-3 gap-2 items-end mb-4">
-              <PodiumItem name="Jennifer Kim" initials="JK" position="2nd Place" refs={142} enrolled={118} gradient="from-gray-400 to-gray-500" />
-              <PodiumItem name="David Rodriguez" initials="DR" position="1st Place" refs={156} enrolled={134} gradient="from-amber-400 to-orange-400" isFirst />
-              <PodiumItem name="Marcus Thompson" initials="MT" position="3rd Place" refs={138} enrolled={112} gradient="from-orange-400 to-red-600" />
-            </div>
-            <div className="flex items-center justify-between bg-card2 rounded-xl p-3 border border-border">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center font-display font-extrabold text-xs text-secondary-foreground">Y</div>
-                <div>
-                  <div className="font-semibold text-[13px]">Your Rank</div>
-                  <div className="text-muted-foreground text-[11px]">#8 of 10</div>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="font-display font-extrabold text-base text-primary">₹30,000</div>
-                <div className="text-muted-foreground text-[10px]">59 enrolled</div>
-              </div>
-            </div>
-          </div>
-
+      {/* Leaderboard Redesign */}
+      <div className="bg-card border border-border rounded-2xl p-6 lg:p-8">
+        <div className="flex items-center justify-between mb-8">
+          <h3 className="font-display font-extrabold text-[17px] flex items-center gap-2">
+            🏆 Top Performers <span className="font-body font-normal text-[10px] text-muted-foreground bg-card2 px-2 py-0.5 rounded-full border border-border/50">This month</span>
+          </h3>
         </div>
 
-        {/* Right Panel */}
-        <div className="flex flex-col gap-4">
-          {/* Counsellor */}
-          <div className="bg-card border border-border rounded-2xl p-5">
-            <h3 className="font-bold text-sm mb-1">For any queries connect to our counsellor</h3>
-            <div className="flex items-center gap-3 my-3">
-              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary text-lg shrink-0">📞</div>
-              <div>
-                <div className="font-bold text-[14px]">+91 98765 43210</div>
-                <div className="text-muted-foreground text-[11px]">Mon–Sat, 9 AM – 6 PM</div>
-              </div>
-            </div>
-            <a href="tel:+919876543210" className="w-full px-3 py-2.5 rounded-lg text-xs font-bold bg-primary text-primary-foreground hover:opacity-90 transition-all flex items-center justify-center gap-1.5">
-              📞 Call Now
-            </a>
-          </div>
-
+        {/* Podiums */}
+        <div className="flex items-end justify-center mb-6 mt-16 gap-1 md:gap-2 gsap-stagger-container relative">
+          <PodiumColumn data={LEADERBOARD[1]} heightClass="h-[180px]" />
+          <PodiumColumn data={LEADERBOARD[0]} heightClass="h-[230px]" isFirst />
+          <PodiumColumn data={LEADERBOARD[2]} heightClass="h-[150px]" />
         </div>
+
+        {/* Current User Stat Bar */}
+        <div className="bg-card2/50 backdrop-blur-sm border border-border/60 rounded-xl p-3 text-center mb-8 max-w-sm mx-auto">
+          <p className="text-[12px] text-muted-foreground">
+            You enrolled <span className="font-bold text-foreground">59</span> students and are ranked <span className="font-bold text-foreground border-b border-primary/30">#8</span> out of <span className="font-bold text-foreground">10</span> users
+          </p>
+        </div>
+
+        {/* Rest of the List */}
+        <div className="w-full bg-card rounded-xl overflow-hidden border border-border/60">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-border/40 bg-card2/20">
+                <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wider text-left px-5 py-3">Place</th>
+                <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wider text-left px-5 py-3">Username</th>
+                <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wider text-right px-5 py-3">Performance</th>
+              </tr>
+            </thead>
+            <tbody className="gsap-stagger-container">
+              {LEADERBOARD.slice(3).map((u, i) => (
+                <tr key={i} className="border-b border-border/30 last:border-b-0 hover:bg-card2/30 transition-colors gsap-stagger-item">
+                  <td className="px-5 py-3 text-muted-foreground font-semibold text-xs">
+                    <span className="text-[10px]">🏆</span> {u.rank}
+                  </td>
+                  <td className="px-5 py-3 font-semibold text-[13px] text-foreground">{u.name}</td>
+                  <td className="px-5 py-3 text-right text-xs font-semibold text-muted-foreground">
+                    <span className="text-foreground">{u.refs}</span> Ref <span className="mx-1 opacity-50">/</span> <span className="text-primary">{u.enrolled}</span> Enr
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
   );
 };
 
-const StatCard = ({ label, value, sub, valueClass = "", badge }: { label: string; value: string; sub?: string; valueClass?: string; badge?: string }) => (
-  <div className="bg-card border border-border rounded-2xl p-4 hover:-translate-y-0.5 transition-transform relative overflow-hidden group">
-    <div className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide mb-1">{label}</div>
+const StatCard = ({ label, icon, value, sub, valueClass = "", badge }: { label: string; icon: string; value: string; sub?: string; valueClass?: string; badge?: string }) => (
+  <div className="bg-card border border-border rounded-2xl p-4 hover:-translate-y-0.5 transition-transform relative overflow-hidden group gsap-stagger-item">
+    <div className="flex items-center justify-between mb-2">
+      <div className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide">{label}</div>
+      <span className="text-base opacity-60">{icon}</span>
+    </div>
     <div className={`font-display font-extrabold text-2xl ${valueClass}`}>{value}</div>
     {sub && <div className="text-muted-foreground text-[10px] mt-1">{sub}</div>}
     {badge && <div className="inline-flex items-center gap-1 bg-secondary/10 text-secondary text-[10px] font-medium px-2 py-0.5 rounded-full mt-1.5">{badge}</div>}
   </div>
 );
 
-const PodiumItem = ({ name, initials, position, refs, enrolled, gradient, isFirst }: { name: string; initials: string; position: string; refs: number; enrolled: number; gradient: string; isFirst?: boolean }) => (
-  <div className="text-center">
-    <div className={`${isFirst ? "w-14 h-14 text-lg" : "w-11 h-11 text-sm"} rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center font-display font-extrabold mx-auto mb-1.5 relative shadow-lg`}>
-      {isFirst && <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-xs">👑</span>}
-      {initials}
+const PodiumColumn = ({ data, heightClass, isFirst }: { data: any, heightClass: string, isFirst?: boolean }) => (
+  <div className={`w-[30%] ${isFirst ? 'bg-gradient-to-t from-primary/15 to-primary/5 border-primary/30 z-10 w-[35%] shadow-lg shadow-primary/5' : 'bg-gradient-to-t from-card2/90 to-card/20 border-border/60'} border-t border-l border-r rounded-t-[1.2rem] relative flex flex-col items-center pt-10 pb-4 ${heightClass} gsap-stagger-item`}>
+    
+    {/* Floating Avatar Region */}
+    <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex flex-col items-center select-none cursor-default group">
+      <div className={`${isFirst ? "w-[4.5rem] h-[4.5rem] text-2xl shadow-primary/30" : "w-14 h-14 text-sm shadow-black/10"} shadow-xl rounded-[1.2rem] bg-gradient-to-br ${data.gradient} flex items-center justify-center font-display font-extrabold text-white mb-2.5 relative border-[3px] border-background group-hover:-translate-y-1 transition-transform`}>
+        {isFirst && <span className="absolute -top-3.5 text-2xl animate-bounce">👑</span>}
+        {data.initials}
+      </div>
+      <div className="font-display font-black tracking-tight text-[13px] md:text-[14px] text-foreground whitespace-nowrap drop-shadow-sm">{data.name}</div>
     </div>
-    {isFirst && <div className="text-warning text-[10px] font-semibold mb-0.5">🏆 Champion</div>}
-    <div className="font-display font-bold text-[11px]">{name}</div>
-    <div className="text-muted-foreground text-[10px] mb-1">{position}</div>
-    <div className="flex gap-1 justify-center">
-      <div className="bg-card2 rounded-md px-1.5 py-1 text-[9px] text-center">Refs<br /><span className="font-extrabold text-[11px]">{refs}</span></div>
-      <div className="bg-card2 rounded-md px-1.5 py-1 text-[9px] text-center">Enr<br /><span className="font-extrabold text-[11px] text-primary">{enrolled}</span></div>
+    
+    {/* Inner Podium Info */}
+    <div className="flex flex-col items-center justify-center mt-auto gap-1.5 w-full px-2 text-center">
+      <div className="flex flex-col gap-1 w-full max-w-[100px] mx-auto">
+        <div className="text-muted-foreground font-medium text-[9px] uppercase tracking-widest bg-background/50 backdrop-blur-md px-1.5 py-0.5 border border-border/50 rounded-md truncate">
+          <span className="font-extrabold">{data.refs}</span> Referred
+        </div>
+        <div className="text-primary font-bold text-[9px] uppercase tracking-widest bg-primary/10 backdrop-blur-md px-1.5 py-0.5 border border-primary/20 rounded-md truncate">
+          <span className="font-extrabold">{data.enrolled}</span> Enrolled
+        </div>
+      </div>
     </div>
+    
   </div>
 );
-
-const FaqItem = ({ q, a }: { q: string; a: string }) => (
-  <details className="border-b border-border group">
-    <summary className="py-3 font-medium text-[13px] cursor-pointer flex justify-between items-center hover:text-primary transition-colors list-none">
-      {q}
-      <span className="text-muted-foreground text-base group-open:hidden">+</span>
-      <span className="text-primary text-base hidden group-open:inline">×</span>
-    </summary>
-    <div className="text-muted-foreground text-xs pb-3 leading-relaxed">{a}</div>
-  </details>
-);
-
-const CopyButton = () => {
-  const handleCopy = (e: React.MouseEvent<HTMLButtonElement>) => {
-    navigator.clipboard.writeText("REF2024SD847").catch(() => {});
-    const btn = e.currentTarget;
-    btn.textContent = "✓ Copied!";
-    setTimeout(() => (btn.textContent = "📋 Copy"), 2000);
-  };
-  return (
-    <button onClick={handleCopy} className="bg-primary text-primary-foreground px-3 py-1 rounded-md text-[11px] font-bold hover:opacity-90 transition-all shrink-0">
-      📋 Copy
-    </button>
-  );
-};
 
 export default DashboardView;

@@ -13,7 +13,7 @@ const RewardsView = () => (
   <div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
       <div className="bg-card border border-primary/15 rounded-2xl p-5 bg-gradient-to-br from-primary/3 to-transparent">
-        <div className="text-muted-foreground text-[11px] mb-2">📈 Total Earnings</div>
+        <div className="text-muted-foreground text-[11px] mb-2">📈 Earnings</div>
         <div className="font-display font-extrabold text-3xl text-primary">₹3,000.00</div>
         <div className="text-muted-foreground text-[10px] mt-1">All time</div>
         <div className="inline-flex items-center gap-1.5 bg-secondary/10 border border-secondary/15 rounded-full px-2.5 py-1 mt-2.5 text-[11px] text-secondary">

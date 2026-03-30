@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Search, Check, Clock, Sparkles, X } from "lucide-react";
 
 const REFERRALS = [
   { initials: "SJ", name: "Sarah Johnson", phone: "+1 (555) 123-4567", email: "sarah.j@company.com", status: "closed", date: "Jan 10, 2025", gradient: "from-secondary to-purple-300" },
@@ -12,11 +13,11 @@ const REFERRALS = [
   { initials: "ZN", name: "Zara Nguyen", phone: "+1 (555) 890-1234", email: "z.nguyen@startup.io", status: "closed", date: "Jan 7, 2025", gradient: "from-purple-300 to-destructive" },
 ];
 
-const STATUS_PILLS: Record<string, { className: string; label: string }> = {
-  closed: { className: "bg-success/10 text-success", label: "✓ Closed" },
-  "in progress": { className: "bg-warning/10 text-warning", label: "⏳ In Progress" },
-  new: { className: "bg-secondary/10 text-secondary", label: "✦ New" },
-  dropped: { className: "bg-destructive/10 text-destructive", label: "✕ Dropped" },
+const STATUS_PILLS: Record<string, { className: string; label: string; icon: React.ReactNode }> = {
+  closed: { className: "bg-success/10 text-success", label: "Closed", icon: <Check className="w-3 h-3" /> },
+  "in progress": { className: "bg-warning/10 text-warning", label: "In Progress", icon: <Clock className="w-3 h-3" /> },
+  new: { className: "bg-secondary/10 text-secondary", label: "New", icon: <Sparkles className="w-3 h-3" /> },
+  dropped: { className: "bg-destructive/10 text-destructive", label: "Dropped", icon: <X className="w-3 h-3" /> },
 };
 
 const ReferralsView = () => {
@@ -35,11 +36,12 @@ const ReferralsView = () => {
     <div>
       <div className="bg-card border border-border rounded-2xl p-5">
         <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
-          <div className="flex gap-2 items-center flex-wrap">
+          <div className="flex gap-2 items-center flex-wrap relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
             <input
               type="search"
-              placeholder="🔍  Search by name, mobile, or email..."
-              className="bg-card2 border border-border px-3 py-1.5 rounded-full text-xs outline-none focus:border-primary/30 transition-colors w-60"
+              placeholder="Search by name, mobile, or email..."
+              className="bg-card2 border border-border pl-9 pr-3 py-1.5 rounded-full text-xs outline-none focus:border-primary/30 transition-colors w-64"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -87,7 +89,7 @@ const ReferralsView = () => {
                     <td className="px-2 py-2.5 text-[13px] text-muted-foreground border-t border-border">{r.phone}</td>
                     <td className="px-2 py-2.5 text-[13px] text-muted-foreground border-t border-border">{r.email}</td>
                     <td className="px-2 py-2.5 border-t border-border">
-                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold ${pill.className}`}>{pill.label}</span>
+                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold ${pill.className}`}>{pill.icon} {pill.label}</span>
                     </td>
                     <td className="px-2 py-2.5 text-xs text-muted-foreground border-t border-border">{r.date}</td>
                   </tr>

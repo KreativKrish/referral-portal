@@ -7,14 +7,15 @@ import FaqView from "@/components/FaqView";
 import React, { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { LayoutDashboard, Users, Wallet, GraduationCap, Phone, HelpCircle, Share2, PlusCircle, Copy, Check, Rocket } from "lucide-react";
 
 const SECTIONS = [
-  { id: "dashboard", label: "🏠 Dashboard" },
-  { id: "referrals", label: "👥 My Referrals" },
-  { id: "rewards", label: "💸 My Rewards" },
-  { id: "courses", label: "🎓 Courses" },
-  { id: "counsellor", label: "📞 Support" },
-  { id: "faq", label: "❓ FAQ" },
+  { id: "dashboard", label: "Dashboard", icon: <LayoutDashboard className="w-3.5 h-3.5" /> },
+  { id: "referrals", label: "My Referrals", icon: <Users className="w-3.5 h-3.5" /> },
+  { id: "rewards", label: "My Rewards", icon: <Wallet className="w-3.5 h-3.5" /> },
+  { id: "courses", label: "Courses", icon: <GraduationCap className="w-3.5 h-3.5" /> },
+  { id: "counsellor", label: "Support", icon: <Phone className="w-3.5 h-3.5" /> },
+  { id: "faq", label: "FAQ", icon: <HelpCircle className="w-3.5 h-3.5" /> },
 ];
 
 const noop = () => { };
@@ -89,10 +90,10 @@ const Index = () => {
         </div>
       </div>
 
-      <div ref={mainContentRef} className="min-h-screen bg-background relative z-[1]">
-      <TopNav tabs={SECTIONS} activeTab="" onTabChange={scrollTo} />
+      <div ref={mainContentRef} className="min-h-screen bg-background relative z-[1] overflow-x-hidden">
+      <TopNav tabs={SECTIONS.map(s => ({ id: s.id, label: <span className="flex items-center gap-1.5">{s.icon}{s.label}</span> } as any))} activeTab="" onTabChange={scrollTo} />
 
-      <main className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-14">
+      <main className="max-w-[1280px] mx-auto px-2 sm:px-4 lg:px-6 py-8 flex flex-col gap-14">
 
         {/* ─── HERO AND PROCESS ─────────────────────────────────── */}
         <section aria-label="Hero and Process" className="gsap-reveal-up grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6 xl:gap-8">
@@ -115,10 +116,10 @@ const Index = () => {
                   onClick={() => navigator.share?.({ title: "Referral Link", text: "Use my referral code REF2024SD847", url: window.location.href }).catch(() => { })}
                   className="bg-primary text-primary-foreground px-5 py-2.5 rounded-xl text-sm font-bold hover:opacity-90 hover:-translate-y-0.5 transition-all flex items-center gap-2 shadow-sm"
                 >
-                  🔗 Share Referral Link
+                  <Share2 className="w-4 h-4" /> Share Referral Link
                 </button>
                 <button className="bg-foreground text-background px-5 py-2.5 rounded-xl text-sm font-bold hover:opacity-90 hover:-translate-y-0.5 transition-all flex items-center gap-2">
-                  ➕ Add New Referral
+                  <PlusCircle className="w-4 h-4" /> Add New Referral
                 </button>
               </div>
             </div>
@@ -135,7 +136,7 @@ const Index = () => {
                   onClick={handleCopy}
                   className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${copied ? "bg-success/10 text-success border border-success/20" : "bg-card2 border border-border hover:border-primary/30 text-foreground"}`}
                 >
-                  {copied ? "✓ Copied!" : "📋 Copy Code"}
+                  {copied ? <><Check className="w-4 h-4" /> Copied!</> : <><Copy className="w-4 h-4" /> Copy Code</>}
                 </button>
               </div>
 
@@ -152,7 +153,7 @@ const Index = () => {
 
           {/* RIGHT SIDE: Steps of referral process */}
           <div className="flex flex-col gsap-stagger-container">
-            <h2 className="font-display font-extrabold text-xl mb-4 flex items-center gap-2">🚀 Start Referring Now</h2>
+            <h2 className="font-display font-extrabold text-xl mb-4 flex items-center gap-2"><Rocket className="w-5 h-5 text-primary" /> Start Referring Now</h2>
             <div className="flex flex-col gap-3 flex-1 justify-between">
               {[
                 { icon: "01", title: "Get Started", desc: "Log in through your Student Portal and securely set up your bank details so you're ready to start earning immediately." },
@@ -178,25 +179,25 @@ const Index = () => {
 
         {/* ─── DASHBOARD ──────────────────────────────────── */}
         <section id="dashboard" aria-label="Dashboard" className="gsap-reveal-up">
-          <SectionHeading>🏠 Dashboard</SectionHeading>
+          <SectionHeading><LayoutDashboard className="w-5 h-5" /> Dashboard</SectionHeading>
           <DashboardView onNavigate={noop} />
         </section>
 
         {/* ─── REFERRALS ──────────────────────────────────── */}
         <section id="referrals" aria-label="My Referrals" className="gsap-reveal-up">
-          <SectionHeading>👥 My Referrals</SectionHeading>
+          <SectionHeading><Users className="w-5 h-5" /> My Referrals</SectionHeading>
           <ReferralsView />
         </section>
 
         {/* ─── REWARDS ────────────────────────────────────── */}
         <section id="rewards" aria-label="My Rewards" className="gsap-reveal-up">
-          <SectionHeading>💸 My Rewards</SectionHeading>
+          <SectionHeading><Wallet className="w-5 h-5" /> My Rewards</SectionHeading>
           <RewardsView />
         </section>
 
         {/* ─── COURSES ────────────────────────────────────── */}
         <section id="courses" aria-label="Courses" className="gsap-reveal-up">
-          <SectionHeading>🎓 Courses</SectionHeading>
+          <SectionHeading><GraduationCap className="w-5 h-5" /> Courses</SectionHeading>
           <CoursesView onNavigate={noop} />
         </section>
 

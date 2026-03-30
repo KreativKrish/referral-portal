@@ -1,6 +1,8 @@
+import { AlertCircle } from "lucide-react";
+
 const AlertBanner = () => (
   <div className="bg-warning/5 border border-warning/20 rounded-2xl p-3.5 flex items-start gap-3 mb-5">
-    <span className="text-warning text-[15px] shrink-0 mt-0.5">⚠️</span>
+    <AlertCircle className="text-warning w-5 h-5 shrink-0 mt-0.5" />
     <div className="flex-1">
       <strong className="text-warning text-[13px] block mb-0.5">Complete Your Payment Details</strong>
       <p className="text-muted-foreground text-[11px]">Add your bank account and UPI information to receive referral earnings seamlessly.</p>

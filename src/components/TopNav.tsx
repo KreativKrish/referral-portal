@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Phone } from "lucide-react";
+import { Bell, ChevronDown, Phone, Menu, X } from "lucide-react";
 
 interface Tab {
   id: string;
@@ -13,6 +13,7 @@ interface TopNavProps {
 }
 
 const TopNav = ({ tabs, activeTab, onTabChange }: TopNavProps) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoverStyle, setHoverStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const navRef = useRef<HTMLElement>(null);
 
@@ -32,14 +33,31 @@ const TopNav = ({ tabs, activeTab, onTabChange }: TopNavProps) => {
     setHoverStyle((prev) => ({ ...prev, opacity: 0 }));
   };
 
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
+
+  const handleTabClick = (id: string) => {
+    onTabChange(id);
+    closeMenu();
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-card/85 backdrop-blur-xl border-b border-border shadow-sm/50 transition-all duration-300">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1280px] mx-auto px-2 sm:px-4 lg:px-6">
         <div className="flex items-center justify-between h-14">
-          {/* Logo */}
-          <div className="flex items-center gap-2.5 shrink-0 group cursor-pointer" onClick={() => onTabChange("dashboard")}>
-            <div className="group-hover:-rotate-2 group-hover:scale-105 transition-transform duration-300 drop-shadow-sm">
-              <img src="/logo.png" alt="RefPortal Logo" className="h-8 md:h-10 object-contain" />
+          {/* Logo and Menu Toggle for Mobile */}
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={toggleMenu}
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl bg-card2 border border-border/50 text-foreground hover:bg-card hover:border-primary/30 transition-all active:scale-95"
+            >
+              {isMenuOpen ? <X className="w-5 h-5 animate-in spin-in-90" /> : <Menu className="w-5 h-5 animate-in fade-in" />}
+            </button>
+            
+            <div className="flex items-center gap-2.5 shrink-0 group cursor-pointer" onClick={() => handleTabClick("dashboard")}>
+              <div className="group-hover:-rotate-2 group-hover:scale-105 transition-transform duration-300 drop-shadow-sm">
+                <img src="/logo.png" alt="RefPortal Logo" className="h-8 md:h-10 object-contain" />
+              </div>
             </div>
           </div>
 
@@ -47,7 +65,7 @@ const TopNav = ({ tabs, activeTab, onTabChange }: TopNavProps) => {
           <nav 
             ref={navRef}
             onMouseLeave={hideHover}
-            className="flex items-center gap-1 overflow-visible scrollbar-none relative"
+            className="hidden md:flex items-center gap-0.5 sm:gap-1 overflow-x-auto md:overflow-visible scrollbar-none relative max-w-full"
           >
             {/* Sliding Glass Oval */}
             <div 
@@ -65,7 +83,7 @@ const TopNav = ({ tabs, activeTab, onTabChange }: TopNavProps) => {
                 <button
                   onMouseEnter={updateHover}
                   onClick={() => onTabChange(tab.id)}
-                  className={`relative z-10 whitespace-nowrap px-3 py-1.5 rounded-full text-[13px] font-medium transition-all duration-300 hover:scale-105 active:scale-95 ${
+                  className={`relative z-10 whitespace-nowrap px-2 sm:px-3 py-1.5 rounded-full text-[12px] sm:text-[13px] font-medium transition-all duration-300 hover:scale-105 active:scale-95 ${
                     activeTab === tab.id
                       ? "bg-primary/10 text-primary font-semibold border border-primary/20 shadow-sm"
                       : "text-muted-foreground hover:text-foreground border border-transparent"
@@ -103,7 +121,7 @@ const TopNav = ({ tabs, activeTab, onTabChange }: TopNavProps) => {
           <div className="flex items-center gap-2.5 shrink-0">
             {/* Notification Bell */}
             <div className="w-8 h-8 bg-card2 hover:bg-card border border-border hover:border-primary/30 rounded-full flex items-center justify-center text-[13px] cursor-pointer relative transition-all duration-300 hover:scale-110 hover:-translate-y-0.5 active:scale-95 hover:shadow-sm group">
-              <span className="group-hover:animate-bounce">🔔</span>
+              <Bell className="w-4 h-4 group-hover:animate-bounce" />
               <div className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full border-2 border-card animate-pulse" />
             </div>
 
@@ -112,8 +130,62 @@ const TopNav = ({ tabs, activeTab, onTabChange }: TopNavProps) => {
               <div className="w-6 h-6 bg-secondary rounded-full flex items-center justify-center font-display font-extrabold text-[9px] text-secondary-foreground group-hover:scale-110 transition-transform duration-300">
                 JD
               </div>
-              <span className="group-hover:text-primary transition-colors duration-300">Student ▾</span>
+              <span className="group-hover:text-primary transition-colors duration-300 flex items-center gap-0.5">Student <ChevronDown className="w-3 h-3" /></span>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Overlay */}
+      <div 
+        className={`fixed inset-0 z-40 bg-background/60 backdrop-blur-md md:hidden transition-all duration-500 ease-in-out ${
+          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={closeMenu}
+      >
+        <div 
+          className={`absolute inset-x-0 top-[56px] bg-card border-b border-border shadow-2xl transition-all duration-500 ease-out p-6 pt-10 flex flex-col gap-8 ${
+            isMenuOpen ? "translate-y-0" : "-translate-y-10"
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Mobile Nav Links */}
+          <div className="grid grid-cols-2 gap-3">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabClick(tab.id)}
+                className={`flex flex-col items-center justify-center gap-2 p-4 rounded-2xl border transition-all duration-300 active:scale-95 ${
+                  activeTab === tab.id
+                    ? "bg-primary/10 text-primary border-primary/20 shadow-sm font-bold"
+                    : "bg-card2 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/20"
+                }`}
+              >
+                <span className="text-[14px] whitespace-nowrap">{tab.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile Support Card */}
+          <div className="bg-gradient-to-br from-primary/5 to-transparent border border-primary/15 rounded-3xl p-6">
+            <h4 className="font-display font-extrabold text-[17px] text-foreground mb-4">
+              Need Assistance?
+            </h4>
+            <div className="flex items-center gap-4 mb-5">
+              <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 shadow-sm shadow-primary/10">
+                <Phone className="w-5 h-5 text-primary" fill="currentColor" />
+              </div>
+              <div>
+                <div className="font-display font-black text-[16px] text-foreground tracking-tight underline decoration-primary/30 decoration-2 underline-offset-4">+91 83828 28258</div>
+                <div className="text-muted-foreground text-[11px] mt-1 font-medium italic">Available Mon–Sat, 9AM – 6PM</div>
+              </div>
+            </div>
+            <a 
+              href="tel:+918382828258" 
+              className="w-full bg-primary text-primary-foreground py-3.5 rounded-2xl text-[14px] font-black hover:opacity-90 hover:shadow-lg hover:shadow-primary/20 transition-all flex items-center justify-center gap-2.5 active:scale-[0.98]"
+            >
+              <Phone className="w-4 h-4" fill="currentColor" /> CALL COUNSELLOR
+            </a>
           </div>
         </div>
       </div>

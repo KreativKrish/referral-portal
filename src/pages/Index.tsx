@@ -37,6 +37,28 @@ const Index = () => {
             Share your referral code, help students find the right course, and earn real cash bonuses for every successful enrollment.
           </p>
         </section>
+        {/* Start Referring Now */}
+        <section className="text-center">
+          <h2 className="font-display font-extrabold text-2xl md:text-3xl mb-8">Start Referring Now</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="rounded-2xl border border-border bg-card p-6 text-left shadow-sm">
+              <p className="text-3xl mb-3">🚀</p>
+              <h3 className="font-display font-bold text-lg mb-2">Step 1: Get Started</h3>
+              <p className="text-muted-foreground text-sm">Log in to the Referral Portal through your Student Portal and quickly set up your bank details to start earning.</p>
+            </div>
+            <div className="rounded-2xl border border-border bg-card p-6 text-left shadow-sm">
+              <p className="text-3xl mb-3">🔗</p>
+              <h3 className="font-display font-bold text-lg mb-2">Step 2: Share & Refer</h3>
+              <p className="text-muted-foreground text-sm">Invite your friends by sharing your referral link or code. They can easily use it while filling out the enquiry form—simple and seamless!</p>
+            </div>
+            <div className="rounded-2xl border border-border bg-card p-6 text-left shadow-sm">
+              <p className="text-3xl mb-3">💰</p>
+              <h3 className="font-display font-bold text-lg mb-2">Step 3: Earn Rewards</h3>
+              <p className="text-muted-foreground text-sm">Once your referral enrolls, you earn a commission directly in your bank account. Plus, your friend enjoys an exclusive discount on their course fee (varies by course).</p>
+            </div>
+          </div>
+        </section>
+
         <section id="dashboard">
           <h2 className="font-display font-extrabold text-xl mb-4">🏠 Dashboard</h2>
           <DashboardView onNavigate={noop} />

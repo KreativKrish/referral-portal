@@ -112,10 +112,6 @@ const Index = () => {
           <h2 className="font-display font-extrabold text-xl mb-4">🎓 Courses</h2>
           <CoursesView onNavigate={noop} />
         </section>
-        <section id="scheme">
-          <h2 className="font-display font-extrabold text-xl mb-4">🎁 Referral Scheme</h2>
-          <SchemeView onNavigate={noop} />
-        </section>
         <section id="faq">
           <h2 className="font-display font-extrabold text-xl mb-4">❓ FAQ</h2>
           <FaqView />

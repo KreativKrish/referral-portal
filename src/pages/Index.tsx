@@ -12,7 +12,6 @@ const SECTIONS = [
   { id: "referrals", label: "👥 My Referrals" },
   { id: "rewards", label: "💸 My Rewards" },
   { id: "courses", label: "🎓 Courses" },
-  { id: "scheme", label: "🎁 Referral Scheme" },
   { id: "faq", label: "❓ FAQ" },
   { id: "terms", label: "📄 Terms" },
 ];

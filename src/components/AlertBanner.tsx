@@ -6,7 +6,7 @@ const AlertBanner = () => (
       <p className="text-muted-foreground text-[11px]">Add your bank account and UPI information to receive referral earnings seamlessly.</p>
     </div>
     <button className="bg-warning text-primary-foreground px-3 py-1.5 rounded-lg text-xs font-bold hover:opacity-90 transition-all shrink-0 self-center whitespace-nowrap">
-      Complete Payment Details
+      Update Now
     </button>
   </div>
 );

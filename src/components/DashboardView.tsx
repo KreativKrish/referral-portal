@@ -73,29 +73,6 @@ const DashboardView = ({ onNavigate }: Props) => {
             <button className="w-full px-3 py-2 rounded-lg text-xs font-semibold bg-secondary text-secondary-foreground hover:opacity-90 transition-all flex items-center justify-center gap-1.5">💬 Chat Now</button>
           </div>
 
-          {/* Referral Code */}
-          <div className="bg-card border border-border rounded-2xl p-5">
-            <h3 className="font-display font-bold text-sm mb-0.5">🔗 Your Referral Code</h3>
-            <p className="text-muted-foreground text-[11px]">Share with students to earn rewards</p>
-            <div className="flex items-center justify-between bg-card2 border border-border rounded-lg p-3 my-3 font-display font-extrabold text-[17px] tracking-wider">
-              REF2024SD847
-              <CopyButton />
-            </div>
-            <div className="grid grid-cols-3 gap-2">
-              <div className="bg-card2 rounded-lg p-2.5 text-center">
-                <div className="text-muted-foreground text-[10px] uppercase tracking-wide">Used</div>
-                <div className="font-display font-extrabold text-base mt-0.5">9</div>
-              </div>
-              <div className="bg-card2 rounded-lg p-2.5 text-center">
-                <div className="text-muted-foreground text-[10px] uppercase tracking-wide">Success</div>
-                <div className="font-display font-extrabold text-base text-primary mt-0.5">0</div>
-              </div>
-              <div className="bg-card2 rounded-lg p-2.5 text-center">
-                <div className="text-muted-foreground text-[10px] uppercase tracking-wide">Earned</div>
-                <div className="font-display font-extrabold text-base text-secondary mt-0.5">₹3K</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

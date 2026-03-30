@@ -3,7 +3,7 @@ import DashboardView from "@/components/DashboardView";
 import ReferralsView from "@/components/ReferralsView";
 import RewardsView from "@/components/RewardsView";
 import CoursesView from "@/components/CoursesView";
-import SchemeView from "@/components/SchemeView";
+
 import FaqView from "@/components/FaqView";
 import TermsView from "@/components/TermsView";
 
@@ -12,7 +12,6 @@ const SECTIONS = [
   { id: "referrals", label: "👥 My Referrals" },
   { id: "rewards", label: "💸 My Rewards" },
   { id: "courses", label: "🎓 Courses" },
-  { id: "scheme", label: "🎁 Referral Scheme" },
   { id: "faq", label: "❓ FAQ" },
   { id: "terms", label: "📄 Terms" },
 ];
@@ -82,14 +81,19 @@ const Index = () => {
                 </button>
               </div>
             </div>
-            <button
-              onClick={() => {
-                navigator.share?.({ title: "Referral Link", text: "Use my referral code REF2024SD847", url: window.location.href }).catch(() => {});
-              }}
-              className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shrink-0"
-            >
-              🔗 Share Referral Link
-            </button>
+            <div className="flex items-center gap-3 shrink-0">
+              <button
+                onClick={() => {
+                  navigator.share?.({ title: "Referral Link", text: "Use my referral code REF2024SD847", url: window.location.href }).catch(() => {});
+                }}
+                className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shrink-0"
+              >
+                🔗 Share Referral Link
+              </button>
+              <button className="bg-foreground text-background px-5 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shrink-0">
+                ➕ Add New Referral
+              </button>
+            </div>
           </div>
         </section>
 
@@ -108,10 +112,6 @@ const Index = () => {
         <section id="courses">
           <h2 className="font-display font-extrabold text-xl mb-4">🎓 Courses</h2>
           <CoursesView onNavigate={noop} />
-        </section>
-        <section id="scheme">
-          <h2 className="font-display font-extrabold text-xl mb-4">🎁 Referral Scheme</h2>
-          <SchemeView onNavigate={noop} />
         </section>
         <section id="faq">
           <h2 className="font-display font-extrabold text-xl mb-4">❓ FAQ</h2>

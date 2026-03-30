@@ -94,6 +94,7 @@ const Index = () => {
                 ➕ Add New Referral
               </button>
             </div>
+          </div>
         </section>
 
         <section id="dashboard">

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import AlertBanner from "./AlertBanner";
 
 const REFERRALS = [
   { initials: "SJ", name: "Sarah Johnson", phone: "+1 (555) 123-4567", email: "sarah.j@company.com", status: "closed", date: "Jan 10, 2025", gradient: "from-secondary to-purple-300" },
@@ -34,7 +33,6 @@ const ReferralsView = () => {
 
   return (
     <div>
-      <AlertBanner />
       <div className="bg-card border border-border rounded-2xl p-5">
         <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
           <div className="flex gap-2 items-center flex-wrap">

@@ -1,9 +1,6 @@
 const TermsView = () => (
   <div className="max-w-[680px]">
-    <div className="bg-card border border-primary/10 rounded-2xl p-5 mb-5 bg-gradient-to-br from-secondary/5 to-primary/3">
-      <h2 className="font-display font-extrabold text-xl mb-1">Terms & Conditions 📄</h2>
-      <p className="text-muted-foreground text-xs">Last updated: January 2025 · Please read these terms carefully before participating.</p>
-    </div>
+    <p className="text-muted-foreground text-xs mb-5">Last updated: January 2025 · Please read these terms carefully before participating.</p>
 
     {[
       { title: "1. Eligibility", content: "The referral program is open to all currently enrolled students. You must have an active account in the portal and have completed your payment details to receive payouts. Self-referrals are not permitted." },
@@ -29,7 +26,7 @@ const TermsView = () => (
     ))}
 
     <div className="bg-card2 border border-border rounded-xl p-3.5">
-      <p className="text-muted-foreground text-xs">Questions? Reach out to Dr. Priya Sharma or email <span className="text-primary">support@refportal.com</span></p>
+      <p className="text-muted-foreground text-xs">Questions? Email us at <span className="text-primary">support@refportal.com</span> or call our counsellor.</p>
     </div>
   </div>
 );

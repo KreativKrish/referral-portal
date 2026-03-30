@@ -8,7 +8,6 @@ const FAQS = [
 
 const FaqView = () => (
   <div className="bg-card border border-border rounded-2xl p-5">
-    <h3 className="font-display font-bold text-[15px] mb-1">❓ Frequently Asked Questions</h3>
     <p className="text-muted-foreground text-[11px] mb-3">Quick answers about the referral program</p>
     {FAQS.map((f, i) => (
       <details key={i} className="border-b border-border group">

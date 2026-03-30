@@ -52,25 +52,17 @@ const DashboardView = ({ onNavigate }: Props) => {
         <div className="flex flex-col gap-4">
           {/* Counsellor */}
           <div className="bg-card border border-border rounded-2xl p-5">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="font-display font-bold text-sm">Your Counsellor</h3>
-              <span className="inline-flex items-center gap-1 bg-success/10 text-success text-[10px] font-medium px-2 py-0.5 rounded-full">
-                <span className="w-1.5 h-1.5 bg-success rounded-full animate-blink" /> Online
-              </span>
-            </div>
+            <h3 className="font-bold text-sm mb-1">For any queries connect to our counsellor</h3>
             <div className="flex items-center gap-3 my-3">
-              <div className="w-11 h-11 bg-gradient-to-br from-amber-400 to-orange-400 rounded-full flex items-center justify-center font-display font-extrabold text-[15px] text-primary-foreground shrink-0">PS</div>
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary text-lg shrink-0">📞</div>
               <div>
-                <div className="font-display font-bold text-[13px]">Dr. Priya Sharma</div>
-                <div className="text-muted-foreground text-[11px]">Senior Admission Counsellor</div>
-                <div className="text-muted-foreground text-[10px]">8+ years experience</div>
+                <div className="font-bold text-[14px]">+91 98765 43210</div>
+                <div className="text-muted-foreground text-[11px]">Mon–Sat, 9 AM – 6 PM</div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-2 mb-2">
-              <button className="px-3 py-2 rounded-lg text-xs border border-border bg-card2 hover:bg-border transition-all flex items-center justify-center gap-1.5">📞 Call</button>
-              <button className="px-3 py-2 rounded-lg text-xs border border-border bg-card2 hover:bg-border transition-all flex items-center justify-center gap-1.5">✉️ Email</button>
-            </div>
-            <button className="w-full px-3 py-2 rounded-lg text-xs font-semibold bg-secondary text-secondary-foreground hover:opacity-90 transition-all flex items-center justify-center gap-1.5">💬 Chat Now</button>
+            <a href="tel:+919876543210" className="w-full px-3 py-2.5 rounded-lg text-xs font-bold bg-primary text-primary-foreground hover:opacity-90 transition-all flex items-center justify-center gap-1.5">
+              📞 Call Now
+            </a>
           </div>
 
         </div>

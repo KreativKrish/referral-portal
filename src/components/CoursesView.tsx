@@ -20,7 +20,7 @@ const COURSES = [
 const CoursesView = ({ onNavigate }: Props) => (
   <div>
     <div className="flex gap-2 mb-5 flex-wrap items-center">
-      <input type="search" placeholder="🔍  Search courses or universities..." className="bg-card2 border border-border px-3 py-1.5 rounded-full text-xs outline-none focus:border-primary/30 transition-colors w-60" />
+      <input type="search" placeholder="🔍  Search courses..." className="bg-card2 border border-border px-3 py-1.5 rounded-full text-xs outline-none focus:border-primary/30 transition-colors w-60" />
       <select className="bg-card border border-border text-muted-foreground px-3 py-1.5 rounded-full text-xs outline-none">
         <option>All Categories</option>
         <option>Postgraduate</option>
@@ -28,25 +28,38 @@ const CoursesView = ({ onNavigate }: Props) => (
       </select>
     </div>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-      {COURSES.map((c, i) => (
-        <div key={i} className="bg-card border border-border rounded-2xl p-4 cursor-pointer hover:-translate-y-0.5 hover:shadow-lg transition-all">
-          <div className="text-[9px] font-bold uppercase tracking-wider text-secondary mb-1">{c.type}</div>
-          <div className="font-display font-bold text-[13px] mb-2 leading-tight">{c.name}</div>
-          <div className="font-display font-extrabold text-xl text-primary">
-            {c.bonus} <span className="font-body font-normal text-[10px] text-muted-foreground">bonus</span>
-          </div>
-          <div className="flex gap-1.5 items-center flex-wrap mt-2">
-            <span className="text-muted-foreground text-[10px]">📅 {c.date}</span>
-            <span className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">{c.benefit}</span>
-          </div>
-        </div>
-      ))}
+    <div className="bg-card border border-border rounded-2xl overflow-hidden">
+      <table className="w-full">
+        <thead>
+          <tr className="border-b border-border bg-card2/50">
+            <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Course</th>
+            <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Type</th>
+            <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Referral Bonus</th>
+            <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Deadline</th>
+            <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-4 py-2.5">Benefit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {COURSES.map((c, i) => (
+            <tr key={i} className="border-b border-border last:border-b-0 hover:bg-card2/30 transition-colors">
+              <td className="px-4 py-3 font-semibold text-[13px]">{c.name}</td>
+              <td className="px-4 py-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-card2 px-2 py-0.5 rounded-full">{c.type}</span>
+              </td>
+              <td className="px-4 py-3 font-extrabold text-primary text-sm">{c.bonus}</td>
+              <td className="px-4 py-3 text-muted-foreground text-xs">📅 {c.date}</td>
+              <td className="px-4 py-3">
+                <span className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">{c.benefit}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
 
     <div className="bg-gradient-to-r from-secondary/10 to-primary/5 border border-primary/15 rounded-2xl p-5 flex items-center justify-between gap-4 mt-5 flex-wrap">
       <div>
-        <h3 className="font-display font-extrabold text-[17px] mb-1">Know someone perfect for these courses? 🎯</h3>
+        <h3 className="font-extrabold text-[17px] mb-1">Know someone perfect for these courses? 🎯</h3>
         <p className="text-muted-foreground text-xs">Refer them now and earn up to ₹5,000 per successful enrollment.</p>
       </div>
       <button onClick={() => onNavigate("referrals")} className="bg-primary text-primary-foreground px-5 py-2.5 rounded-full text-[13px] font-bold hover:-translate-y-0.5 hover:shadow-lg transition-all shrink-0">

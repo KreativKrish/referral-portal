@@ -1,4 +1,4 @@
-import AlertBanner from "./AlertBanner";
+
 
 const TRANSACTIONS = [
   { type: "Referral Bonus", date: "Jan 12, 2025 · 10:30 AM", amount: "+₹500", status: "done" },
@@ -11,7 +11,6 @@ const TRANSACTIONS = [
 
 const RewardsView = () => (
   <div>
-    <AlertBanner />
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
       <div className="bg-card border border-primary/15 rounded-2xl p-5 bg-gradient-to-br from-primary/3 to-transparent">
         <div className="text-muted-foreground text-[11px] mb-2">📈 Total Earnings</div>

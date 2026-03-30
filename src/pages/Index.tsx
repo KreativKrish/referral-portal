@@ -4,6 +4,7 @@ import ReferralsView from "@/components/ReferralsView";
 import RewardsView from "@/components/RewardsView";
 import CoursesView from "@/components/CoursesView";
 import SchemeView from "@/components/SchemeView";
+import FaqView from "@/components/FaqView";
 import TermsView from "@/components/TermsView";
 
 const SECTIONS = [
@@ -12,6 +13,7 @@ const SECTIONS = [
   { id: "rewards", label: "💸 My Rewards" },
   { id: "courses", label: "🎓 Courses" },
   { id: "scheme", label: "🎁 Referral Scheme" },
+  { id: "faq", label: "❓ FAQ" },
   { id: "terms", label: "📄 Terms" },
 ];
 
@@ -27,27 +29,31 @@ const Index = () => {
       <TopNav tabs={SECTIONS} activeTab="" onTabChange={scrollTo} />
       <main className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-12">
         <section id="dashboard">
-          <h2 className="font-display font-extrabold text-xl mb-4 flex items-center gap-2">🏠 Dashboard</h2>
+          <h2 className="font-display font-extrabold text-xl mb-4">🏠 Dashboard</h2>
           <DashboardView onNavigate={noop} />
         </section>
         <section id="referrals">
-          <h2 className="font-display font-extrabold text-xl mb-4 flex items-center gap-2">👥 My Referrals</h2>
+          <h2 className="font-display font-extrabold text-xl mb-4">👥 My Referrals</h2>
           <ReferralsView />
         </section>
         <section id="rewards">
-          <h2 className="font-display font-extrabold text-xl mb-4 flex items-center gap-2">💸 My Rewards</h2>
+          <h2 className="font-display font-extrabold text-xl mb-4">💸 My Rewards</h2>
           <RewardsView />
         </section>
         <section id="courses">
-          <h2 className="font-display font-extrabold text-xl mb-4 flex items-center gap-2">🎓 Courses</h2>
+          <h2 className="font-display font-extrabold text-xl mb-4">🎓 Courses</h2>
           <CoursesView onNavigate={noop} />
         </section>
         <section id="scheme">
-          <h2 className="font-display font-extrabold text-xl mb-4 flex items-center gap-2">🎁 Referral Scheme</h2>
+          <h2 className="font-display font-extrabold text-xl mb-4">🎁 Referral Scheme</h2>
           <SchemeView onNavigate={noop} />
         </section>
+        <section id="faq">
+          <h2 className="font-display font-extrabold text-xl mb-4">❓ FAQ</h2>
+          <FaqView />
+        </section>
         <section id="terms">
-          <h2 className="font-display font-extrabold text-xl mb-4 flex items-center gap-2">📄 Terms</h2>
+          <h2 className="font-display font-extrabold text-xl mb-4">📄 Terms & Conditions</h2>
           <TermsView />
         </section>
       </main>

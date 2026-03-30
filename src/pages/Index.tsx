@@ -28,6 +28,15 @@ const Index = () => {
     <div className="min-h-screen bg-background relative z-[1]">
       <TopNav tabs={SECTIONS} activeTab="" onTabChange={scrollTo} />
       <main className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-12">
+        {/* Hero */}
+        <section className="bg-gradient-to-br from-primary/10 via-secondary/5 to-transparent border border-primary/15 rounded-2xl p-8 md:p-12 text-center">
+          <h1 className="font-display font-extrabold text-3xl md:text-4xl lg:text-5xl leading-tight mb-3">
+            Refer Friends. Shape Futures.<br className="hidden sm:block" /> <span className="text-primary">Earn Rewards.</span>
+          </h1>
+          <p className="text-muted-foreground text-sm md:text-base max-w-xl mx-auto">
+            Share your referral code, help students find the right course, and earn real cash bonuses for every successful enrollment.
+          </p>
+        </section>
         <section id="dashboard">
           <h2 className="font-display font-extrabold text-xl mb-4">🏠 Dashboard</h2>
           <DashboardView onNavigate={noop} />

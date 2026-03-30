@@ -1,4 +1,4 @@
-import AlertBanner from "./AlertBanner";
+
 
 const TRANSACTIONS = [
   { type: "Referral Bonus", date: "Jan 12, 2025 · 10:30 AM", amount: "+₹500", status: "done" },

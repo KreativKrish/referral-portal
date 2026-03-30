@@ -3,7 +3,7 @@ import DashboardView from "@/components/DashboardView";
 import ReferralsView from "@/components/ReferralsView";
 import RewardsView from "@/components/RewardsView";
 import CoursesView from "@/components/CoursesView";
-import SchemeView from "@/components/SchemeView";
+
 import FaqView from "@/components/FaqView";
 import TermsView from "@/components/TermsView";
 

@@ -81,15 +81,19 @@ const Index = () => {
                 </button>
               </div>
             </div>
-            <button
-              onClick={() => {
-                navigator.share?.({ title: "Referral Link", text: "Use my referral code REF2024SD847", url: window.location.href }).catch(() => {});
-              }}
-              className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shrink-0"
-            >
-              🔗 Share Referral Link
-            </button>
-          </div>
+            <div className="flex items-center gap-3 shrink-0">
+              <button
+                onClick={() => {
+                  navigator.share?.({ title: "Referral Link", text: "Use my referral code REF2024SD847", url: window.location.href }).catch(() => {});
+                }}
+                className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shrink-0"
+              >
+                🔗 Share Referral Link
+              </button>
+              <button className="bg-foreground text-background px-5 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shrink-0">
+                ➕ Add New Referral
+              </button>
+            </div>
         </section>
 
         <section id="dashboard">

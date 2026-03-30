@@ -46,16 +46,6 @@ const DashboardView = ({ onNavigate }: Props) => {
             </div>
           </div>
 
-          {/* FAQ */}
-          <div className="bg-card border border-border rounded-2xl p-5">
-            <h3 className="font-display font-bold text-[15px] mb-1">❓ Frequently Asked Questions</h3>
-            <p className="text-muted-foreground text-[11px] mb-3">Quick answers about the referral program</p>
-            <FaqItem q="How do I earn money through referrals?" a="Share your unique referral code with students. When they enroll in eligible courses using your code, you earn a cash bonus for each successful enrollment." />
-            <FaqItem q="When will I receive my payout?" a="Payouts are processed within 7–10 working days after a referral is marked 'Closed.' Make sure your bank or UPI details are complete." />
-            <FaqItem q="What happens if a referred student drops out?" a="If a student drops out within 30 days, the referral bonus may be reversed. After 30 days, your earnings are locked in." />
-            <FaqItem q="Can I refer international students?" a="Yes! International students are eligible as long as they enroll in a course listed on the Earning Opportunities page." />
-            <FaqItem q="How do I track my referral progress?" a='Head to "My Referrals" to see real-time status for each person.' />
-          </div>
         </div>
 
         {/* Right Panel */}

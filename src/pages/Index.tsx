@@ -13,7 +13,7 @@ const SECTIONS = [
   { id: "dashboard", label: "Dashboard", icon: <LayoutDashboard className="w-3.5 h-3.5" /> },
   { id: "referrals", label: "My Referrals", icon: <Users className="w-3.5 h-3.5" /> },
   { id: "rewards", label: "My Rewards", icon: <Wallet className="w-3.5 h-3.5" /> },
-  { id: "courses", label: "Courses", icon: <GraduationCap className="w-3.5 h-3.5" /> },
+  { id: "courses", label: "Courses to Refer", icon: <GraduationCap className="w-3.5 h-3.5" /> },
   { id: "counsellor", label: "Support", icon: <Phone className="w-3.5 h-3.5" /> },
   { id: "faq", label: "FAQ", icon: <HelpCircle className="w-3.5 h-3.5" /> },
 ];
@@ -197,7 +197,7 @@ const Index = () => {
 
         {/* ─── COURSES ────────────────────────────────────── */}
         <section id="courses" aria-label="Courses" className="gsap-reveal-up">
-          <SectionHeading><GraduationCap className="w-5 h-5" /> Courses</SectionHeading>
+          <SectionHeading><GraduationCap className="w-5 h-5" /> Courses to Refer</SectionHeading>
           <CoursesView onNavigate={noop} />
         </section>
 

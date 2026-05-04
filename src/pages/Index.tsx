@@ -101,7 +101,7 @@ const Index = () => {
           {/* LEFT SIDE: Hero Text + Stats */}
           <div className="flex flex-col gap-4">
             {/* Main hero cell */}
-            <div className="bg-gradient-to-br from-sky-400/20 via-sky-400/5 to-transparent border border-sky-400/20 rounded-3xl p-8 md:p-10 flex flex-col justify-between gap-6 flex-1">
+            <div className="bg-gradient-to-br from-sky-400/20 via-sky-400/5 to-transparent border border-sky-400/20 rounded-3xl p-8 md:p-10 flex flex-col justify-between gap-6 flex-1 shadow-card">
               <div>
                 <h1 className="font-display font-extrabold text-3xl md:text-4xl lg:text-[2.6rem] leading-tight mb-3">
                   Refer Friends.<br />Shape Futures.<br />
@@ -127,7 +127,7 @@ const Index = () => {
             {/* Quick stats row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Referral code card */}
-              <div className="bg-card border border-border rounded-3xl p-5 flex flex-col justify-between gap-3 hover:border-primary/30 transition-colors">
+              <div className="bg-card border border-border rounded-3xl p-5 flex flex-col justify-between gap-3 hover:border-primary/30 transition-all shadow-card hover:shadow-card-hover">
                 <div>
                   <div className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide mb-1">Your Referral Code</div>
                   <div className="font-display font-extrabold text-2xl tracking-wider text-foreground">REF2024SD847</div>
@@ -141,7 +141,7 @@ const Index = () => {
               </div>
 
               {/* Quick stat: earnings */}
-              <div className="bg-gradient-to-br from-primary/8 to-transparent border border-primary/15 rounded-3xl p-5 flex flex-col justify-between group">
+              <div className="bg-gradient-to-br from-primary/8 to-transparent border border-primary/15 rounded-3xl p-5 flex flex-col justify-between group shadow-card hover:shadow-card-hover transition-all">
                 <div className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide mb-1">Current Earnings</div>
                 <div className="font-display font-extrabold text-3xl text-primary group-hover:scale-105 transition-transform origin-left">₹3,000</div>
                 <div className="inline-flex items-center gap-1 bg-secondary/10 text-secondary text-[10px] font-medium px-2 py-0.5 rounded-full mt-2 self-start">
@@ -162,7 +162,7 @@ const Index = () => {
               ].map((s, i) => (
                 <div 
                   key={i} 
-                  className="bg-card border border-border rounded-2xl p-6 flex items-start gap-5 hover:-translate-y-1 hover:border-primary/30 transition-all group shadow-sm hover:shadow-md gsap-stagger-item"
+                  className="bg-card border border-border rounded-2xl p-6 flex items-start gap-5 hover:-translate-y-1 hover:border-primary/20 transition-all group shadow-card hover:shadow-card-hover gsap-stagger-item"
                 >
                   <div className="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center font-display font-extrabold text-xl text-primary shrink-0 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                     {s.icon}
@@ -225,9 +225,12 @@ const Index = () => {
 };
 
 const SectionHeading = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
-  <h2 className={`font-display font-extrabold flex items-center gap-2 ${className || "text-xl mb-5"}`}>
-    {children}
-  </h2>
+  <div className="flex items-center gap-4 mb-6">
+    <h2 className={`font-display font-extrabold flex items-center gap-2 text-xl whitespace-nowrap text-foreground/90 ${className}`}>
+      {children}
+    </h2>
+    <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
+  </div>
 );
 
 export default Index;

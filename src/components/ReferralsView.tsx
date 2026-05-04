@@ -14,10 +14,10 @@ const REFERRALS = [
 ];
 
 const STATUS_PILLS: Record<string, { className: string; label: string; icon: React.ReactNode }> = {
-  closed: { className: "bg-success/10 text-success", label: "Closed", icon: <Check className="w-3 h-3" /> },
-  "in progress": { className: "bg-warning/10 text-warning", label: "In Progress", icon: <Clock className="w-3 h-3" /> },
-  new: { className: "bg-secondary/10 text-secondary", label: "New", icon: <Sparkles className="w-3 h-3" /> },
-  dropped: { className: "bg-destructive/10 text-destructive", label: "Dropped", icon: <X className="w-3 h-3" /> },
+  closed: { className: "bg-success/10 text-success border border-success/20", label: "Closed", icon: <Check className="w-3 h-3" /> },
+  "in progress": { className: "bg-warning/10 text-warning border border-warning/20", label: "In Progress", icon: <Clock className="w-3 h-3" /> },
+  new: { className: "bg-secondary/10 text-secondary border border-secondary/20", label: "New", icon: <Sparkles className="w-3 h-3" /> },
+  dropped: { className: "bg-destructive/10 text-destructive border border-destructive/20", label: "Dropped", icon: <X className="w-3 h-3" /> },
 };
 
 const ReferralsView = () => {
@@ -34,29 +34,30 @@ const ReferralsView = () => {
 
   return (
     <div>
-      <div className="bg-card border border-border rounded-2xl p-5">
+      <div className="bg-card border border-border rounded-2xl p-5 shadow-card">
         <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
-          <div className="flex gap-2 items-center flex-wrap relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+          {/* Search input with properly scoped icon */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" />
             <input
               type="search"
               placeholder="Search by name, mobile, or email..."
-              className="bg-card2 border border-border pl-9 pr-3 py-1.5 rounded-full text-xs outline-none focus:border-primary/30 transition-colors w-64"
+              className="bg-card2 border border-border pl-9 pr-3 py-1.5 rounded-full text-xs outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all w-64"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
         </div>
 
-        <div className="flex gap-1.5 flex-wrap mb-4">
+        <div className="flex gap-1.5 flex-wrap mb-5">
           {filters.map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
               className={`px-3 py-1 rounded-full text-xs capitalize border transition-all ${
                 filter === f
-                  ? "bg-primary text-primary-foreground border-primary font-bold"
-                  : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/20"
+                  ? "bg-primary text-primary-foreground border-primary font-semibold shadow-sm"
+                  : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/20 bg-card"
               }`}
             >
               {f === "all" ? "All" : f.charAt(0).toUpperCase() + f.slice(1)}
@@ -67,34 +68,45 @@ const ReferralsView = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr>
-                <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-2 py-1">Name</th>
-                <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-2 py-1">Mobile Number</th>
-                <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-2 py-1">Email</th>
-                <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-2 py-1">Status</th>
-                <th className="text-muted-foreground text-[10px] font-medium uppercase tracking-wide text-left px-2 py-1">Date Added</th>
+              <tr className="border-b border-border">
+                <th className="text-muted-foreground text-[10px] font-semibold uppercase tracking-wider text-left px-3 py-2.5">Name</th>
+                <th className="text-muted-foreground text-[10px] font-semibold uppercase tracking-wider text-left px-3 py-2.5">Mobile</th>
+                <th className="text-muted-foreground text-[10px] font-semibold uppercase tracking-wider text-left px-3 py-2.5">Email</th>
+                <th className="text-muted-foreground text-[10px] font-semibold uppercase tracking-wider text-left px-3 py-2.5">Status</th>
+                <th className="text-muted-foreground text-[10px] font-semibold uppercase tracking-wider text-left px-3 py-2.5">Date Added</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((r, i) => {
                 const pill = STATUS_PILLS[r.status];
                 return (
-                  <tr key={i} className="hover:bg-card2/50">
-                    <td className="px-2 py-2.5 text-[13px] border-t border-border">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${r.gradient} flex items-center justify-center font-display font-bold text-[10px] text-primary-foreground shrink-0`}>{r.initials}</div>
-                        {r.name}
+                  <tr key={i} className="hover:bg-card2/50 transition-colors group">
+                    <td className="px-3 py-3 text-[13px] border-t border-border">
+                      <div className="flex items-center gap-2.5">
+                        <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${r.gradient} flex items-center justify-center font-display font-bold text-[10px] text-white shrink-0`}>
+                          {r.initials}
+                        </div>
+                        <span className="font-medium text-foreground">{r.name}</span>
                       </div>
                     </td>
-                    <td className="px-2 py-2.5 text-[13px] text-muted-foreground border-t border-border">{r.phone}</td>
-                    <td className="px-2 py-2.5 text-[13px] text-muted-foreground border-t border-border">{r.email}</td>
-                    <td className="px-2 py-2.5 border-t border-border">
-                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold ${pill.className}`}>{pill.icon} {pill.label}</span>
+                    <td className="px-3 py-3 text-[12px] text-muted-foreground border-t border-border">{r.phone}</td>
+                    <td className="px-3 py-3 text-[12px] text-muted-foreground border-t border-border">{r.email}</td>
+                    <td className="px-3 py-3 border-t border-border">
+                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold ${pill.className}`}>
+                        {pill.icon} {pill.label}
+                      </span>
                     </td>
-                    <td className="px-2 py-2.5 text-xs text-muted-foreground border-t border-border">{r.date}</td>
+                    <td className="px-3 py-3 text-[11px] text-muted-foreground border-t border-border">{r.date}</td>
                   </tr>
                 );
               })}
+              {filtered.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="px-3 py-10 text-center text-muted-foreground text-sm border-t border-border">
+                    No referrals match your search.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
